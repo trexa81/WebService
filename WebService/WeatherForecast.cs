@@ -1,5 +1,8 @@
 namespace WebService
 {
+    /// <summary>
+    /// Прогноз погоды Forecast
+    /// </summary>
     public class WeatherForecast
     {
         /// <summary>
