@@ -7,5 +7,6 @@ namespace WebService.Controllers
     [ApiController]
     public class WeatherCrudController : ControllerBase
     {
+        
     }
 }
