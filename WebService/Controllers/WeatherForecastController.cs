@@ -4,6 +4,8 @@ namespace WebService.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+
+    // погода
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
