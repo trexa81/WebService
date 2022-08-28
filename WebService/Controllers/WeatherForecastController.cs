@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using WebService.ModelsBuilder;
 
 namespace WebService.Controllers
 {
@@ -8,28 +9,37 @@ namespace WebService.Controllers
     // погода
     public class WeatherForecastController : ControllerBase
     {
-        //private static readonly string[] Summaries = new[]
-        //{
-        //"Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        //};
+        private readonly WeatherForecastHolder _holder;
 
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(WeatherForecastHolder holder)
         {
-            _logger = logger;
+            _holder = holder;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpPost("add")]
+        public IActionResult Add([FromQuery] DateTime date, [FromQuery] int temperatureC)
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                //Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            _holder.Add(date, temperatureC);
+            return Ok();
+        }
+
+        [HttpPut("update")]
+        public IActionResult Update([FromQuery] DateTime date, [FromQuery] int temperatureC)
+        {
+            return Ok(_holder.Update(date, temperatureC));
+        }
+
+        [HttpGet("get")]
+        public IEnumerable<WeatherForecast> Get([FromQuery] DateTime dateFrom, [FromQuery] DateTime dateTo)
+        {
+            return _holder.Get(dateFrom, dateTo);
+        }
+
+        //TODO: Доработать ...
+        [HttpDelete("delete")]
+        public IActionResult Delete([FromQuery] DateTime date)
+        {
+            return Ok(_holder.Delete(date));
         }
 
 
