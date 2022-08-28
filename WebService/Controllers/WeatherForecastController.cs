@@ -35,6 +35,10 @@ namespace WebService.Controllers
             return _holder.Get(dateFrom, dateTo);
         }
 
-        
+        [HttpDelete("delete")]
+        public IActionResult Delete([FromQuery] DateTime date)
+        {
+            return Ok(_holder.Delete(date));
+        }
     }
 }
