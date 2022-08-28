@@ -1,3 +1,6 @@
+using WebService.Controllers;
+using WebService.ModelsBuilder;
+
 namespace WebService
 {
     public class Program
@@ -7,6 +10,8 @@ namespace WebService
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddSingleton<ValuesHolder>();
+            builder.Services.AddSingleton<WeatherForecastHolder>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
